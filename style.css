@@ -1,0 +1,87 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #222;
+    background-color: #f9f9f9;
+}
+
+/* Navigation bar using Flexbox */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    background: #111;
+    color: white;
+}
+
+nav ul {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav a.active {
+    font-weight: bold;
+    color: #00ffcc;
+}
+
+header {
+    background: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #111;
+    color: white;
+    margin-top: 20px;
+}
+
+/* Event Cards Layout using Flexbox */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+article {
+    width: 300px;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background: #fff;
+    margin-bottom: 20px;
+}
+
+/* Responsive Design Media Query */
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+    }
+    article {
+        width: 100%;
+    }
+}

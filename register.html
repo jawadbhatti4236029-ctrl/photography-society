@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Society - Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Event Registration</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="register.html" class="active">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <form id="regForm">
+            <fieldset>
+                <legend>Workshop Registration Form</legend>
+
+                <div>
+                    <label for="fullname">Full Name:</label>
+                    <input type="text" id="fullname" name="fullname" required minlength="3" placeholder="Enter full name">
+                </div>
+
+                <div>
+                    <label for="email">University Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="student@university.edu">
+                </div>
+
+                <div>
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{11}" placeholder="03001234567" required>
+                </div>
+
+                <div>
+                    <label for="eventChoice">Select Event:</label>
+                    <select id="eventChoice" name="eventChoice" required>
+                        <option value="Campus Photowalk">Campus Photowalk</option>
+                        <option value="Portrait Masterclass">Portrait Masterclass</option>
+                        <option value="Night Photography Session">Night Photography Session</option>
+                        <option value="Annual Exhibition">Annual Exhibition</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>How did you hear about us?</label><br>
+                    <input type="radio" name="source" value="Poster" checked> 
+                    <input type="radio" name="source" value="Friend"> 
+                </div>
+
+                <button type="submit">Submit Registration</button>
+            </fieldset>
+        </form>
+
+        <section>
+            <h2>Saved Registrations</h2>
+            <ul id="regList"></ul>
+            <button id="clearBtn">Clear All</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 University Photography Society</p>
+    </footer>
+
+    <script>
+        
+        const form = document.getElementById('regForm');
+        const regList = document.getElementById('regList');
+        const clearBtn = document.getElementById('clearBtn');
+
+        function displayRegistrations() {
+            regList.innerHTML = '';
+            const savedData = localStorage.getItem('registrations');
+            if (savedData) {
+                const regs = JSON.parse(savedData);
+                regs.forEach(reg => {
+                    const li = document.createElement('li');
+                    li.textContent = `${reg.fullname} (${reg.email}) - Event: ${reg.eventChoice}`;
+                    regList.appendChild(li);
+                });
+            }
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fullname = document.getElementById('fullname').value;
+            const email = document.getElementById('email').value;
+            const eventChoice = document.getElementById('eventChoice').value;
+
+            const newReg = { fullname, email, eventChoice };
+            let regs = JSON.parse(localStorage.getItem('registrations')) || [];
+            regs.push(newReg);
+            
+        
+            localStorage.setItem('registrations', JSON.stringify(regs));
+            displayRegistrations();
+            form.reset();
+            alert('Registration saved successfully!');
+        });
+
+        clearBtn.addEventListener('click', function() {
+            localStorage.removeItem('registrations');
+            displayRegistrations();
+        });
+
+        window.onload = displayRegistrations;
+    </script>
+</body>
+</html>
